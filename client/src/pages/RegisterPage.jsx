@@ -1,62 +1,60 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import axios from "axios"
 
 const RegisterPage = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  const nameHandler = (e) => {
-    setName(e.target.value);
-  };
-  const emailHandler = (e) => {
-    setEmail(e.target.value);
-  };
-  const passwordHandler = (e) => {
-    setPassword(e.target.value);
-  };
-  const registerUser = async(e) => {
+  const registerUser = async (e) =>{
     e.preventDefault();
     try {
-      await axios.post("/register", {
-        name,
-        email,
-        password,
-      });
-      alert('registiration completed')
-    } catch (error) {
-      alert('registration failed')
+        await axios.post('/register', {
+            name: name,
+            email: email,
+            password: password
+        })
+    
+        alert('register succefull')
+    } catch (e) {
+        alert('please try again')
     }
-  };
+  }
   return (
+
     <div className="mt-4 grow flex items-center justify-around">
-      <div className="mt-32">
-        <h1 className="text-4xl text-center mb-4">register</h1>
-        <form action="" className="max-w-md mx-auto " onSubmit={registerUser}>
+      <div className="mb-64">
+        <h1 className="text-4xl text-center mb-4">Register</h1>
+        <form className="max-w-md mx-auto" onSubmit={registerUser}>
           <input
             type="text"
-            placeholder="name"
+            placeholder="John Doe"
             value={name}
-            onChange={nameHandler}
+            onChange={(e) => {
+              setName(e.target.value);
+            }}
           />
           <input
             type="email"
-            placeholder="email"
+            placeholder="your@email.com"
             value={email}
-            onChange={emailHandler}
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
           />
           <input
             type="password"
             placeholder="password"
             value={password}
-            onChange={passwordHandler}
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
           />
-          <button className="primary">register</button>
+          <button className="primary">Register</button>
           <div className="text-center py-2 text-gray-500">
-            have an acount yet?{" "}
-            <Link to="/login" className="underline text-blue-500">
-              Login now
+            Already a member?
+            <Link className="underline text-black" to={"/login"}>
+              Login
             </Link>
           </div>
         </form>
